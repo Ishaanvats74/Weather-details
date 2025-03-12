@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        <h1 id="cityname">City</h1>
+        <p>Temperature: <span id="temperature">0</span>°c</p>
+        <p>Wind speed: <span id="speed"></span>km/h</p>
+        <p>Condition: <span id="condition">N/A</span></p>
+        <img src="" alt="" id="img">
+    </div>
+    <div>
+        <input type="text" placeholder="enter cityname:" id="city" >
+        <button id="click" onclick="getWeather()" >Search</button>
+    </div>
+    <script>
+        const apiKey =  '0c42f7f6b53b244c78a418f4f181282a';
+        const api = ` https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=metric&q=`;
+        
+            let city = document.getElementById("city");
+            let cityname = document.getElementById("cityname");
+            let temperature = document.getElementById("temperature");
+            let speed = document.getElementById("speed");
+            let condition = document.getElementById("condition");
+            let click = document.getElementById("click");
+            
+        
+        async function getWeather() {
+
+            const res = await fetch(api + city.value);
+            const data = await res.json();
+            console.log(data);
+
+            cityname.innerText = data.name;
+            temperature.innerText = data.main.temp;
+            speed.innerText = data.wind.speed;
+            condition.innerText = data.weather[0].main;
+        };
+
+
+    </script>
+</body>
+</html>
